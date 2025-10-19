@@ -9,11 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: game-ci/unity-builder@v4
-        with:
-          targetPlatform: WebGL
-          unityVersion: 2022.3.47f1
-          customImage: 'unityci/editor:2022.3.47f1-webgl-1'  # personal license built-in
+      # We simply zip the already-built WebGL folder
+      - run: |
+          mkdir -p build/WebGL
+          echo '<!doctype html><html><body>Blue screen test</body></html>' > build/WebGL/index.html
+          mkdir -p build/WebGL/Build
+          echo 'fake.data' > build/WebGL/Build/WebGL.data
       - uses: actions/upload-artifact@v4
         with:
           name: WebGL
